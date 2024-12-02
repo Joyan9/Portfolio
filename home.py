@@ -1,132 +1,161 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-import base64
-from streamlit_lottie import st_lottie
-import requests
-import json
-from reume_page import resume
-from experience_page import experience
-from upwork_page import feedbackRating
-from project_page import projects
-from contact_form import contact
 
- # Page setup
+# Set page configuration
 st.set_page_config(
-    page_title="archana",
-    page_icon="📋",
+    page_title="Joyan Bhathena - Portfolio",
     layout="wide",
+    initial_sidebar_state="expanded",
 )
 
-
-def gradient(color1, color2, color3, content1, content2):
-    st.markdown(f'<h1 style="text-align:center;background-image: linear-gradient(to right,{color1}, {color2});font-size:60px;border-radius:2%;">'
-                f'<span style="color:{color3};">{content1}</span><br>'
-                f'<span style="color:white;font-size:17px;">{content2}</span></h1>',
-                unsafe_allow_html=True)
-def aboutMe():
-    col1, col2 = st.columns(2)
-    full_name = "Archana"
-    info = {'Intro': "Data scientist"}
-
-    with col1:
-        st.markdown("<h2 style='text-align: center; '>Hello! I'm Archana 👋</h2>", unsafe_allow_html=True)
-
-        st.markdown("""
-        <style>
-        .center-text {
-        text-align: justify;
-        }
-        </style>
-        <div class="justify-text">
-        
-        I am a dedicated Data Scientist with over 4 years of professional experience in the dynamic fields of 
-        machine learning and artificial intelligence. I have a proven track record in developing innovative ML models, 
-        conducting in-depth data analysis, and implementing data-driven solutions that significantly impact business outcomes.
-        
-        I have successfully led projects across various stages of the data lifecycle, from data collection and cleaning to 
-        feature engineering, modeling, and validation. I hold a Master's in Electronics (Signal Processing) and a 
-        Bachelor's in Electronics and Communication 
-        Engineering. I am passionate about continuous learning and advancing in the AI field.
-        </div>
-        """, unsafe_allow_html=True)
-        c1,c2, c3 =st.columns(3)
-        c1.markdown("""**[GitHub](https://github.com/archanags001)**""")
-        c2.markdown("""**[LinkedIn](https://www.linkedin.com/in/archanags001)** """)
-        c3.markdown("""**[Upwork](https://www.upwork.com/freelancers/~010f3758a004ea64dd?viewMod%20e)**""")
-
-
-    path = "Animation_blue_robo.json"
-    with open(path, "r") as file:
-        url = json.load(file)
-    with col2:
-
-        st_lottie(url,
-                  reverse=True,
-                  height=400,
-                  width=400,
-                  speed=1,
-                  loop=True,
-                  quality='high',
-                  )
-def load_lottieurl(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-def get_base64_image(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
-
-# Get the base64 string of the image
-logo_base64 = get_base64_image("Image.jpeg")
-
-# Logo styling
-logo_html = f"""
-    <style>
-    .logo-container {{
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-    }}
-    .logo {{
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-    }}
-    </style>
-    <div class="logo-container">
-        <img src="data:image/png;base64,{logo_base64}" class="logo">
-    </div>
-"""
-
-# Display logo in the sidebar
-st.sidebar.markdown(logo_html, unsafe_allow_html=True)
+# Navigation Bar
 with st.sidebar:
-    # Other sidebar elements
-    # st.sidebar.image("logo_image.png", width=200, use_column_width=True)
-    # Option menu in sidebar
-    pages = ["About me", "Resume", "Experience",  "Projects", "Testimonials", "Contact"]
-    nav_tab_op = option_menu(
-        menu_title="Archana",
-        options=pages,
-        icons=['person-fill', 'file-text', 'briefcase', 'folder', 'star', 'envelope'],
-        menu_icon="cast",
-        default_index=0,
+    selected = option_menu(
+        menu_title=None,  # Leave empty to remove the title
+        options=["Home", "Resume", "Projects", "Skills", "Contact"],
+        icons=["house", "file-text", "list-task", "gear", "envelope"],
+        menu_icon="cast",  # Icon for the navigation menu
+        default_index=0,  # Default selected menu
     )
-# Main content of the app
-if nav_tab_op == "About me":
-    aboutMe()
 
-elif nav_tab_op == "Resume":
-    resume()
-elif nav_tab_op == "Experience":
-    experience()
-elif nav_tab_op == "Testimonials":
-    feedbackRating()
-elif nav_tab_op == "Projects":
-    projects()
-elif nav_tab_op == "Contact":
-    contact()
+# Page Content
+if selected == "Home":
+    st.title("👨‍💻 Joyan Bhathena")
+    st.subheader("About Me")
+    st.write("""
+    Hi, I'm **Joyan Bhathena**, a passionate Computer Science master's student at IU Berlin, 
+    with a focus on AI fairness, software engineering, and data analytics. 
+    I thrive on learning and delivering high-quality results, as reflected in my past roles 
+    as a Digital Analytics Expert and top-performing employee.
+    """)
+    st.image("profile_picture.jpg", width=200)  # Replace with your profile picture path
+
+# Resume Section
+elif selected == "Resume":
+    st.title("Resume")
+    # Summary
+    st.header("Summary")
+    st.write("""
+    I bring a unique blend of academic rigor and real-world experience, having honed my skills during nearly 2 years of work 
+    in Digital Analytics while pursuing a master's in Computer Science. My exceptional work ethic and commitment to excellence 
+    enable me to contribute meaningfully to the rapidly evolving fields of data science and analytics.
+    """)
+
+    # Technical Skills
+    st.header("Technical Skills")
+    st.write("""
+    - **Programming Languages**: Python, SQL, JavaScript  
+    - **Digital Analytics Tools**: Google Analytics, Google Tag Manager, BigQuery, HubSpot, RudderStack, Matomo Analytics  
+    - **Business Intelligence**: Looker Studio, Tableau, Power BI  
+    """)
+
+    # Experience
+    st.header("Experience")
+    st.subheader("Analytics Consultant | DataVinci Analytics Agency (08/2022 – 10/2024)")
+    st.write("""
+    DataVinci is a digital analytics agency providing analytics as a service.
+    - Successfully managed 3 retainer projects generating $500k – $1M in monthly revenue.
+    - Led ad hoc projects using tools like Google Analytics 4, GTM, RudderStack, and Google Ads.
+    - Analyzed over 50 datasets monthly, delivering actionable insights for strategic decisions.
+    - Developed dashboards that enhanced decision-making for stakeholders.
+    """)
+
+    # Education
+    st.header("Education")
+    st.write("""
+    - **Master's in Computer Science** | IU International University of Applied Sciences, Berlin (06/2023 – Present)  
+      - GPA: 1.3/5  
+    - **Bachelor of Technology** | Walchand College of Engineering, India (08/2018 – 08/2022)  
+      - CGPA: 8.76/10  
+    - **Higher Secondary** | New Era High School, India (09/2014 – 06/2019)  
+      - Percentage: 94.6%
+    """)
+
+    # Honors and Awards
+    st.header("Honors and Awards")
+    st.write("""
+    - **Top Performer (FY23)**: Awarded for outstanding contributions at DataVinci.
+    - **Data Maestro**: Twice named Employee of the Month at DataVinci.
+    - **RudderStack Swags**: Recognized for contributions to the Data Engineering Challenge.
+    - **Captain**: Former captain of the college football team, showcasing leadership on and off the field.
+    """)
+
+    # Strengths
+    st.header("Strengths")
+    st.write("Philomath, Critical Thinking, Work Ethic")
+
+    # Languages
+    st.header("Languages")
+    st.write("""
+    - **English**: Proficient (C1)  
+    - **German**: Intermediate (B1)
+    - **Hindi**: Advanced  
+    """)
+
+elif selected == "Projects":
+    st.title("Projects")
+    
+    # Project 1: Unit Test Generator Web App
+    st.subheader("1️⃣ Unit Test Generator Web App")
+    st.write("""
+    A custom-built tool for generating university-specific question papers tailored to exam formats.  
+    - **Features**:
+      - Upload course unit PDFs and specify chapters/pages for targeted question generation.
+      - Automatically generate questions (5 MCQs, 2 six-mark, 2 ten-mark).
+      - Adjusts difficulty based on provided practice papers.
+      - Tracks token usage and processing time in Google Sheets.
+    - **Technology Stack**:
+      - Streamlit for UI development.
+      - OpenAI API for natural language processing.
+      - Python for backend text extraction and processing.
+      - Google Sheets for performance metric logging.
+    - **Challenges Addressed**:
+      - Streamlined the manual process of question paper creation.
+      - Enhanced cost-efficiency by processing only the first 20 pages of input PDFs.
+    - **Links**:
+      - [Live App](https://unit-test-generator-iu.streamlit.app/)
+      - [GitHub Repository](https://github.com/Joyan9/project_software_engg)
+    """)
+
+    # Project 2: Cab Service Data Analysis Project
+    st.subheader("2️⃣ Cab Service Data Analysis Project")
+    st.write("""
+    As a data analyst, I analyzed data from an Indian cab service provider to understand market penetration patterns across 10 cities. The project involved:
+    - **Key Objectives**:
+      - Identifying business vs. tourism-focused cities using trip volumes, fares, and distances.
+      - Analyzing seasonal trends and weather impacts on demand.
+      - Evaluating customer retention with repeat rates and satisfaction metrics.
+    - **Tools Used**: Excel, Google Sheets, Looker Studio, Canva.
+    - **Outcome**: Strategic recommendations for dynamic pricing, loyalty programs, and service enhancements.
+    - **Key Findings**:
+      - High retention doesn't always correlate with satisfaction (e.g., Surat and Lucknow had 40%+ repeat rates despite low satisfaction scores).
+      - Discovered operational differences between tourist hubs and business centers.
+      - Exposed inconsistencies in new vs. repeat passenger ratings (8.65 vs. 6.96).
+
+    - **Links**:  
+        -  [Dashboard](https://lookerstudio.google.com/reporting/037d8935-7ebd-4f65-a9a8-3d5a73cd2b6e/page/hcCSE)  
+        -  [Presentation](https://www.youtube.com/watch?v=gpTYg58Ojyg)  
+
+    - **Key Learnings**:  
+    This project emphasized the importance of analyzing customer behavior and local dynamics for sustainable business growth.
+    """)
 
 
+elif selected == "Skills":
+    st.title("Skills")
+    st.write("""
+    - **Programming**: Python, SQL, Streamlit  
+    - **Tools**: Google Sheets, Jupyter Notebook  
+    - **Other Skills**: Digital Analytics, Project Management, Technical Documentation  
+    """)
+
+elif selected == "Contact":
+    st.title("Contact")
+    st.write("Feel free to connect with me:")
+    st.write("- [LinkedIn](https://linkedin.com/in/your-profile)")
+    st.write("- [GitHub](https://github.com/your-profile)")
+    st.write("- Email: your_email@example.com")
+
+# Footer
+st.markdown("---")
+st.markdown("© 2024 Joyan Bhathena | Built with ❤️ using Streamlit")
