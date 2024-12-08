@@ -23,12 +23,11 @@ if selected == "Home":
     st.title("👨‍💻 Joyan Bhathena")
     st.subheader("About Me")
     st.write("""
-    Hi, I'm **Joyan Bhathena**, a passionate Computer Science master's student at IU Berlin, 
-    with a focus on AI fairness, software engineering, and data analytics. 
+    Hi, I'm a passionate Computer Science master's student at IU Berlin, 
+    with a focus on data engineering and data analytics. 
     I thrive on learning and delivering high-quality results, as reflected in my past roles 
     as a Digital Analytics Expert and top-performing employee.
     """)
-    st.image("profile_picture.jpg", width=200)  # Replace with your profile picture path
 
 # Resume Section
 elif selected == "Resume":
@@ -144,17 +143,17 @@ elif selected == "Projects":
 elif selected == "Skills":
     st.title("Skills")
     st.write("""
-    - **Programming**: Python, SQL, Streamlit  
-    - **Tools**: Google Sheets, Jupyter Notebook  
-    - **Other Skills**: Digital Analytics, Project Management, Technical Documentation  
+    - **Programming**: Python, SQL, JavaScript  
+    - **Tools**: Google Analytics, Google Tag Manager, BigQuery, Jupyter Notebook, Google Sheets / Excel
+    - **Project Management Tools**: Slack, Notion, Monday, ClickUp, Basecamp  
     """)
 
 elif selected == "Contact":
     st.title("Contact")
     st.write("Feel free to connect with me:")
-    st.write("- [LinkedIn](https://linkedin.com/in/your-profile)")
-    st.write("- [GitHub](https://github.com/your-profile)")
-    st.write("- Email: your_email@example.com")
+    st.write("- [LinkedIn](https://www.linkedin.com/in/joyan-bhathena/)")
+    st.write("- [GitHub](https://github.com/Joyan9)")
+    st.write("- Email: joyansbhathena@gmail.com")
 
 # Footer
 st.markdown("---")
